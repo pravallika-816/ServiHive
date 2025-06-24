@@ -16,9 +16,6 @@
 - **Database**: MongoDB
 - **Authentication**: JWT / Sessions (whichever you're using)
 
-## 📸 Screenshots
-
-_Add screenshots here if available. Use `assets/` folder in repo._
 
 ## ⚙️ Setup Instructions
 
