@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiHive Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3c59f;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #d49b7e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #893f04;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #893f04;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .login-button {
+            background-color: #ddb8;
+            color: #fff;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #893f04;
+        }
+
+        .login-button:hover {
+            background-color: #c67f43;
+        }
+
+        .signup-link {
+            font-size: 14px;
+            color: #893f04;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">ServiHive</div>
+        
+        <form action="process_login.php" method="post" onsubmit="return handleLogin()">
+            <div class="input-group">
+                <label for="email">Email ID or Phone Number:</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="login-button">Login</button>
+        </form>
+
+        <!-- Move the JavaScript code outside the form -->
+        <script>
+            function handleLogin() {
+                // Replace 'homepage.html' with the actual path of the page you want to navigate to
+                window.location.href = 'homepage.html';
+                return false;
+            }
+        </script>
+
+        <a href="signup.html" class="signup-link">Sign Up for a new account</a>
+    </div>
+</body>
+</html>

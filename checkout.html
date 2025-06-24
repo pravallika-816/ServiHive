@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color:  #c67f43;
+        }
+
+        header {
+            background-color:  #c67f43;
+            padding: 10px;
+            color: #893f04;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #d49b7e;
+            color: #fff;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color:#c67f43;
+        }
+
+        .confirmation {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .payment-options {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Checkout</h1>
+    </header>
+
+    <main>
+        <label for="address">Shipping Address:</label>
+        <input type="text" id="address" name="address" placeholder="Enter your address">
+        
+        <label for="phone">Enter your mobile number:</label>
+        <input type="text" id="phone" placeholder="Mobile number">
+
+        <label for="date">Select Service Date:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="paymentMode">Choose Payment Mode:</label>
+        <select id="paymentMode" name="paymentMode" onchange="togglePaymentOptions()">
+            <option value="cod">Cash on Delivery (COD)</option>
+        </select>
+
+        <div class="payment-options" id="paymentOptions">
+            <label for="upi">UPI Payment:</label>
+            <input type="text" id="upi" name="upi" placeholder="Enter UPI ID">
+        </div>
+
+        <button onclick="confirmOrder()">Place Order</button>
+
+        <div id="confirmationPopup" class="confirmation">
+            <h2>Booking Confirmation Sent!</h2>
+            <p>Your booking confirmation has been sent to your phone number.</p>
+        </div>
+
+        <div class="confirmation" id="confirmationMessage">
+            <h2>Order Confirmed!</h2>
+            <p>Your order will be delivered on the selected date.</p>
+        </div>
+    </main>
+
+    <script>
+        function togglePaymentOptions() {
+            var paymentMode = document.getElementById("paymentMode").value;
+        var paymentOptions = document.getElementById("paymentOptions");
+
+        if (paymentMode === "cod") {
+            paymentOptions.style.display = "none";
+        } else {
+            paymentOptions.style.display = "block";
+        }
+        }
+
+        function confirmOrder() {
+            var paymentMode = document.getElementById("paymentMode").value;
+            var selectedDate = document.getElementById("date").value;
+            var today = new Date().toISOString().split('T')[0]; // Get today's date in "YYYY-MM-DD" format
+
+            if (paymentMode === "cod" && selectedDate <= today) {
+                alert("Please choose a valid future date for the service.");
+                return;
+            }
+
+            // Show the confirmation popup
+            var confirmationPopup = document.getElementById("confirmationPopup");
+            confirmationPopup.style.display = "block";
+
+            // Set a timeout to hide the popup after a few seconds
+            setTimeout(function() {
+                confirmationPopup.style.display = "none";
+
+                // Redirect to a new page after hiding the popup
+                window.location.href = "orderconfirmed.html"; // Replace with the desired URL
+            }, 4000); // Adjust the time (in milliseconds) as needed
+        }
+
+        // Set the minimum date to today
+        document.getElementById("date").min = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>

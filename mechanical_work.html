@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechanical Work Services</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #893f04;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #d49b7e;
+            color: #893f04;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .menu-icon, .cart-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .provider {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 10px;
+            width: 300px;
+            text-align: center;
+            background-color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-icon" onclick="openMenu()">&#9776;</div>
+        <h1>Mechanical Work Services</h1>
+        <div class="cart-icon" onclick="openCart()">🛒</div>
+    </header>
+    
+    <div class="providers">
+        <div class="provider" onclick="addToCart('Mechanic 1', 4.0 , 10)">
+            <h3>Mechanic 1</h3>
+            <p>Rating: 4.0</p>
+            <p>Experience: 10 years</p>
+            <p>Cost: ₹500 (+ Additional Charges)</p>
+            <p>Phone no.:8291851447</p>
+            <button>Add to Cart</button>
+        </div>
+        
+        <div class="provider" onclick="addToCart('Mechanic 2', 3.9, 8)">
+            <h3>Mechanic 2</h3>
+            <p>Rating: 3.9</p>
+            <p>Experience: 8 years</p>
+            <p>Cost: ₹500 (+ Additional Charges)</p>
+            <p>Phone no.:5144782918</p>
+            <button>Add to Cart</button>
+        </div>
+        
+        <div class="provider" onclick="addToCart('Mechanic 3', 4.5, 12)">
+            <h3>Mechanic 3</h3>
+            <p>Rating: 4.5</p>
+            <p>Experience: 12 years</p>
+            <p>Cost: ₹500 (+ Additional Charges)</p>
+            <p>Phone no.:9185182447</p>
+            <button>Add to Cart</button>
+        </div>
+    </div>
+
+    <script>
+        function openMenu() {
+            window.location.href = 'menu.html';
+        }
+    
+        function openCart() {
+            window.location.href = 'cart.html';
+        }
+    
+        function addToCart(providerName, rating, experience) {
+            // Retrieve existing cart items from localStorage
+            var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    
+            // Add the new item to the cart
+            var newItem = { providerName, rating, experience };
+            cartItems.push(newItem);
+    
+            // Store the updated cart items back to localStorage
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    
+            // Notify the user
+            alert(`Added ${providerName} to the cart`);
+        }
+    </script>
+</body>
+</html>

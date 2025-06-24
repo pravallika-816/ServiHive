@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #c67f43;
+        }
+
+        header {
+            background-color: #c67f43;
+            padding: 10px;
+            color: #893f04;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #d49b7e;
+            color: #fff;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c67f43;
+        }
+
+        .confirmation {
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Feedback</h1>
+    </header>
+
+    <main>
+        <label for="feedback">Your Feedback:</label>
+        <textarea id="feedback" name="feedback" rows="6" placeholder="Enter your feedback here"></textarea>
+
+        <button onclick="submitFeedback()">Submit Feedback</button>
+
+        <div class="confirmation" id="confirmationMessage">
+            <h2>Thank you for your feedback!</h2>
+            <p>We appreciate your input.</p>
+        </div>
+    </main>
+
+    <script>
+        function submitFeedback() {
+            const feedbackText = document.getElementById('feedback').value;
+
+            // Example of handling confirmation on the client side
+            document.getElementById('confirmationMessage').style.display = 'block';
+
+            // Send feedback to the server (you may want to use fetch or other methods)
+            // This part is typically done using an AJAX request to your server
+
+            // Example using fetch:
+            fetch('/send-feedback-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ feedback: feedbackText }),
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+    <script>
+        // Server-side JavaScript (Node.js with Express)
+        const express = require('express');
+        const nodemailer = require('nodemailer');
+        const bodyParser = require('body-parser');
+        const fs = require('fs');
+
+        const app = express();
+        const port = 3000;
+
+        app.use(bodyParser.urlencoded({ extended: true }));
+        app.use(bodyParser.json());
+
+        app.post('/send-feedback-email', (req, res) => {
+            const feedback = req.body.feedback;
+
+            // Save feedback to a file
+            fs.appendFile('feedback.txt', feedback + '\n', (err) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send('Error saving feedback');
+                    return;
+                }
+
+                // Set up the Nodemailer transporter
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: '2211cs010038@mallareddyuniversity.ac.in', // Replace with your Gmail email
+                        pass: 'praallika2004' // Replace with your Gmail password or app-specific password
+                    }
+                });
+
+                // Define the email options
+                const mailOptions = {
+                    from: '2211cs010038@mallareddyuniversity.ac.in',
+                    to: '1804pravallika@gmail.com', // Replace with the recipient's email address
+                    subject: 'Feedback Received',
+                    text: `Feedback: ${feedback}`
+                };
+
+                // Send the email
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.error(error);
+                        res.status(500).send('Error sending feedback email');
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                        res.status(200).json({ message: 'Feedback email sent successfully' });
+                    }
+                });
+            });
+        });
+
+        app.listen(port, () => {
+            console.log(`Server listening at http://localhost:${port}`);
+        });
+    </script>
+</body>
+</html>

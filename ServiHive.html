@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f3c59f;
+        }
+
+        #logo {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        .loading-bar-container {
+            position: relative;
+            width: 300px;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            width: 0;
+            height: 100%;
+            background-color: #893f04;
+
+            border-radius: 5px; 
+            transition: width 4s ease; 
+        }
+
+        #loading-text {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <img src="logo.png" alt="Logo" id="logo">
+    
+    <div class="loading-bar-container">
+        <div class="loading-bar" id="bar"></div>
+    </div>
+    
+    <div id="loading-text">Loading...</div>
+
+    <script>
+        // Simulate loading completion after a delay
+        setTimeout(function() {
+            document.getElementById('bar').style.width = '100%';
+            // Redirect to a new page after the loading animation completes
+            setTimeout(function() {
+                window.location.href = 'welcome.html';
+            }, 2000); // Match the animation duration
+        }, 1000); // Adjust the delay before the animation starts
+    </script>
+</body>
+</html>
